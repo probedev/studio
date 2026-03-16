@@ -1,16 +1,22 @@
 import Link from "next/link";
-import { getCategories } from "@/lib/content";
+import { getCategories, getHeroImages } from "@/lib/content";
 import { CategoryCard } from "@/components/CategoryCard";
+import { HeroCarousel } from "@/components/HeroCarousel";
 
 export default function HomePage() {
   const categories = getCategories();
+  const heroImages = getHeroImages();
   const firstCategory = categories[0];
+
+  const hasHeroImages = heroImages.length > 0;
 
   return (
     <div>
-      {/* Hero: full-screen cover from first category or placeholder */}
+      {/* Hero: carousel if hero images, else first category cover, else placeholder */}
       <section className="relative h-[85vh] min-h-[400px] w-full overflow-hidden">
-        {firstCategory?.coverImageUrl ? (
+        {hasHeroImages ? (
+          <HeroCarousel images={heroImages} />
+        ) : firstCategory?.coverImageUrl ? (
           <CategoryCard
             slug={firstCategory.slug}
             title={firstCategory.title}
@@ -20,7 +26,7 @@ export default function HomePage() {
           />
         ) : (
           <div className="absolute inset-0 bg-muted flex items-center justify-center">
-            <span className="text-muted-foreground text-lg">Add categories and cover images in content</span>
+            <span className="text-muted-foreground text-lg">Add hero images in content/hero.ts or category covers in content/categories.ts</span>
           </div>
         )}
       </section>
