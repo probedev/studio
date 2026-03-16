@@ -1,7 +1,6 @@
 import { categories } from "@/content/categories";
 import { galleries } from "@/content/galleries";
-import { heroImages } from "@/content/hero";
-import type { Category, Gallery, HeroImage } from "@/content/types";
+import type { Category, Gallery } from "@/content/types";
 
 export function getCategories(): Category[] {
   return [...categories].sort((a, b) => a.order - b.order);
@@ -24,8 +23,4 @@ export function getGalleryBySlug(slug: string): Gallery | undefined {
   const category = getCategoryBySlug(slug);
   if (!category) return undefined;
   return getGalleryByCategoryId(category.id);
-}
-
-export function getHeroImages(): HeroImage[] {
-  return [...heroImages].sort((a, b) => a.order - b.order);
 }

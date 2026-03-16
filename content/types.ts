@@ -18,9 +18,3 @@ export interface Gallery {
   categoryId: string;
   photos: Photo[];
 }
-
-export interface HeroImage {
-  blobUrl: string;
-  alt: string;
-  order: number;
-}
